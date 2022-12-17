@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const createToken = (user) => {
     const accessToken = jwt.sign(
         { username: user.username, id: user.id },
-        "jwtsecretplschange"
+        "jwtsecret"
     );
 
     return accessToken;
@@ -16,7 +16,7 @@ const verifyToken = (req, res, next) => {
         return res.status(400).json({ error: "User not Authenticated!" });
 
     try {
-        const validToken = jwt.verify(accessToken, "jwtsecretplschange");
+        const validToken = jwt.verify(accessToken, "jwtsecret");
         if (validToken) {
             req.authenticated = true;
             return next();
